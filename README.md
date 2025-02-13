@@ -1,75 +1,80 @@
-# Dynamic Pricing API for LincRide :: Ride-Hailing App
+# LincRide Dynamic Pricing API
 
-This project implements a dynamic pricing algorithm for a ride-hailing app using Django and Django REST Framework. It calculates ride fares based on distance, traffic, demand, and time-of-day factors, using SQLite as the database and caching to improve performance.
+> Smart, real-time fare calculations for modern ride-hailing
 
-## Setup
+This API powers LincRide's dynamic pricing system, calculating fares based on key factors like distance, traffic conditions, demand levels, and time of day. Built with Django and Django REST Framework, it provides reliable and transparent pricing through an efficient SQLite database with performance-optimizing caches.
 
-### Environment
+## Getting Started
 
-This project uses Pipenv, but feel free to use your preferred virtual environment tool.
+### Setting Up Your Environment
 
-To set up with Pipenv:
+The project supports flexible environment setup options:
 
 ```bash
+# Using Pipenv (recommended)
 pipenv install
 pipenv shell
-```
 
-Alternatively, you can use:
-
-```bash
+# Alternative quick setup
 make init
 ```
 
-### Environment Variables
+### Environment Configuration
 
-Create a `.env` file in the project root with:
+Create a `.env` file in your project root:
 
 ```env
-BASE_FARE=2.5
-PER_KM_RATE=1.0
-DEBUG=True
+BASE_FARE=2.5          # Base fare amount
+PER_KM_RATE=1.0       # Per-kilometer rate
+DEBUG=True            # Enable development mode
 SECRET_KEY=your-secret-key
 DJANGO_LOG_LEVEL=INFO
 ```
 
-## Running the Application
+### Launch the API
 
-Start the Django server with:
+Start the development server:
 
 ```bash
 python manage.py runserver
 ```
 
-Access the API at:
+The API will be available at `http://127.0.0.1:8000/api/calculate-fare/`
 
-```
-http://127.0.0.1:8000/api/calculate-fare/
-```
+## API Reference
 
-## API Usage
+### Calculate Fare Endpoint
 
-Send a GET request with these query parameters:
+Send GET requests with the following parameters:
 
-- **distance** (float, required): Ride distance in km (0.1 - 100)
-- **traffic_level** (string, optional): One of `low`, `normal`, or `high`
-- **demand_level** (string, optional): One of `normal` or `peak`
+- `distance`: Ride distance in kilometers (0.1 - 100)
+- `traffic_level`: Current traffic conditions (`low`, `normal`, `high`)
+- `demand_level`: Demand status (`normal`, `peak`)
 
-Example:
+Example request:
 
 ```
 GET /api/calculate-fare/?distance=10&traffic_level=high&demand_level=peak
 ```
 
-## Running Tests
+## Development
 
-Run all tests with:
+### Running Tests
+
+Execute the test suite:
 
 ```bash
 make test
 ```
 
-## Notes
+### Starting the server
 
-- **Caching:** Fare calculations are cached for 5 minutes to improve performance.
-- **Middleware:** `ConditionalGetMiddleware` is enabled to optimize API responses.
+```bash
+make start
+```
+
+## Technical Notes
+
+- Fare calculations are cached for 5 minutes to optimize performance
+- Implements `ConditionalGetMiddleware` for efficient API responses
+- Built on Django's robust REST framework for reliable API handling

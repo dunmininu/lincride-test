@@ -19,3 +19,6 @@ docker-up:
 
 lint:
 	ruff check --fix .
+
+start:
+	python manage.py runserver
